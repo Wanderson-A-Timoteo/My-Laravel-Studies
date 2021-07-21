@@ -12,7 +12,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Rotas básicas
+Route::view('/', 'welcome');
+//Podemos redirecionar a rota de uma pg para qualquer uma que desejamos usando  Route::redirect
+// Sempre que uma pessoa acessar a raiz do site será redirecionado para a pg que desejamos
+//Route::redirect('/', '/teste');
+Route::view('/teste', 'teste');
 
-Route::get('/', function () {
-    return view('welcome');
+// Rotas dinâmicas  com parâmetros
+Route::get('/noticia/{slug}', function($slug) {
+    echo "slug: ".$slug;
+});
+// Quando o usuario digitar uma url qlqr a rota dinâmica pega as informações digitadas e inserem entre as chaves como parâmetro
+Route::get('/noticia/{slug}/comentario/{id}', function($slug, $id) {
+    echo "Mostrando o comentario".$id." da noticia ".$slug;
 });
