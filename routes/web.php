@@ -74,7 +74,7 @@ Route::get('/config/info', function() {
 Route::get('/config/permissoes', function() {
     echo 'Configurações PERMISSÕES';
 })->name('permissoes');
-*/
+
 
 Route::view('/', 'welcome');
 
@@ -102,4 +102,29 @@ Route::fallback(function() {
     return view('404');
 });
 
+*/
+
+ /*
+ Foi criado na pasta app/Http/Controllers a pasta Admin e por fim movido o arquivo ConfigController.php
+ que estava na pasta Controllers para a pasta Controllers/Admin.
+Dessa forma precisamos fazer algumas alterações, pois quando acessamos a rota /config ocorre o erro
+(  Target class [App\Http\Controllers\ConfigController] does not exist.  )
+
+Para corrigir o erro precisamos definir as pastas, ou seja, os namespaces que eles estão enquadrados
+*/
+Route::get('/', 'HomeController');
+Route::view('/teste', 'teste');
+
+Route::prefix('/config')->group(function() {
+
+// É preciso alterar tbm a rota colocando \Admin em cada rota
+    Route::get('/', 'Admin\ConfigController@index');
+    Route::get('info', 'Admin\ConfigController@info');
+    Route::get('permissoes', 'Admin\ConfigController@permissoes');
+
+});
+
+Route::fallback(function() {
+    return view('404');
+});
 
