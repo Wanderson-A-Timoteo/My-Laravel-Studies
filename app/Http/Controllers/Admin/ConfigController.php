@@ -21,7 +21,7 @@ class ConfigController extends Controller
         echo "Configurações INFO 3";
     }
 
-    public function premissoes() {
+    public function permissoes() {
         echo "Configurações PERMISSÕES 3";
     }
 }
