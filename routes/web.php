@@ -27,3 +27,12 @@ Route::get('/noticia/{slug}', function($slug) {
 Route::get('/noticia/{slug}/comentario/{id}', function($slug, $id) {
     echo "Mostrando o comentario".$id." da noticia ".$slug;
 });
+
+// Rotas com Regex + Provider ( expressões regulares )
+Route::get('/user/{name}', function($name) {
+    echo "Mostrando o usuario de NOME: ".$name;
+})->where('name', '[a-z]+');
+
+Route::get('/user/{id}', function($id) {
+    echo "Mostrando o usuario ID: ".$id;
+});
