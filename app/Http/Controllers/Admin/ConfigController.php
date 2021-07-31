@@ -12,16 +12,18 @@ use Illuminate\Http\Request;
 
 class ConfigController extends Controller
 {
-    //
-    public function index() {
+    public function index(Request $request) {
+        $url = $request->url();
+
+        echo "URL: ".$url;
         return view('config');
     }
 
     public function info() {
-        echo "Configurações INFO 3";
+        echo "Configurações das informações";
     }
 
     public function permissoes() {
-        echo "Configurações PERMISSÕES 3";
+        echo "Configurações PERMISSÕES ";
     }
 }

@@ -112,19 +112,79 @@ Dessa forma precisamos fazer algumas alterações, pois quando acessamos a rota 
 
 Para corrigir o erro precisamos definir as pastas, ou seja, os namespaces que eles estão enquadrados
 */
+// Route::get('/', 'HomeController');
+// Route::view('/teste', 'teste');
+
+// Route::prefix('/config')->group(function() {
+
+//     Route::get('/', 'ConfigController@index');
+//     Route::get('info', 'ConfigController@info');
+//     Route::get('permissoes', 'ConfigController@permissoes');
+
+// });
+
+// Route::fallback(function() {
+//     return view('404');
+// });
+
+
+
+// Route::get('/', 'Controller');
+// Route::post('/usuario', 'Controller');
+// Route::put('/usuario', 'Controller');
+// Route::patch('/usuario', 'Controller');
+// Route::delete('/usuario', 'Controller');
+// Route::options('/usuario', 'Controller');
+
+
+
+
+// Route::post('/usuario', 'Controller');
+
+
+
+// Route::get('/usuario/{name}', function($name) {
+//     echo "Mostrando o usuario de NOME: ".$name;
+// });
+
+// Route::get('/usuario/{id}', function($id) {
+//     echo "Mostrando o usuario ID: ".$id;
+// });
+
+
+// Route::get('/usuario/{name}/usuario/{id}', function($name, $id) {
+//     echo "Mostrando o usuário de NOME: ".$name." e ID ".$id;
+// });
+
+
+// Route::get('/config', function() {
+//     return view('config');
+// });
+
+// Route::get('/config/info', function() {
+//     echo "Informações do usuário";
+// })->name('info');
+
+// Route::get('/config/permissoes', function() {
+//     echo "PERMISSÕES do usuário";
+// })->name('permissoes');
+
+
 Route::get('/', 'HomeController');
 Route::view('/teste', 'teste');
 
 Route::prefix('/config')->group(function() {
+    Route::get('/', function() {
+        //return view('config');
+    });
 
-// É preciso alterar tbm a rota colocando \Admin em cada rota
-    Route::get('/', 'Admin\ConfigController@index');
-    Route::get('info', 'Admin\ConfigController@info');
-    Route::get('permissoes', 'Admin\ConfigController@permissoes');
+    Route::get('info', function() {
+        echo "Informações do usuário";
+    });
 
+    Route::get('permissoes', function() {
+        echo "PERMISSÕES do usuário";
+    });
 });
 
-Route::fallback(function() {
-    return view('404');
-});
 
