@@ -112,16 +112,17 @@ Dessa forma precisamos fazer algumas alterações, pois quando acessamos a rota 
 
 Para corrigir o erro precisamos definir as pastas, ou seja, os namespaces que eles estão enquadrados
 */
-// Route::get('/', 'HomeController');
-// Route::view('/teste', 'teste');
+Route::get('/', 'HomeController');
+Route::view('/teste', 'teste');
 
-// Route::prefix('/config')->group(function() {
+Route::prefix('/config')->group(function() {
 
-//     Route::get('/', 'ConfigController@index');
-//     Route::get('info', 'ConfigController@info');
-//     Route::get('permissoes', 'ConfigController@permissoes');
+    Route::get('/', 'ConfigController@index');
+    Route::post('/', 'ConfigController@index');
+    Route::get('info', 'ConfigController@info');
+    Route::get('permissoes', 'ConfigController@permissoes');
 
-// });
+});
 
 // Route::fallback(function() {
 //     return view('404');
@@ -170,21 +171,21 @@ Para corrigir o erro precisamos definir as pastas, ou seja, os namespaces que el
 // })->name('permissoes');
 
 
-Route::get('/', 'HomeController');
-Route::view('/teste', 'teste');
+// Route::get('/', 'HomeController');
+// Route::view('/teste', 'teste');
 
-Route::prefix('/config')->group(function() {
-    Route::get('/', function() {
-        //return view('config');
-    });
+// Route::prefix('/config')->group(function() {
+//     Route::get('/', function() {
+//         //return view('config');
+//     });
 
-    Route::get('info', function() {
-        echo "Informações do usuário";
-    });
+//     Route::get('info', function() {
+//         echo "Informações do usuário";
+//     });
 
-    Route::get('permissoes', function() {
-        echo "PERMISSÕES do usuário";
-    });
-});
+//     Route::get('permissoes', function() {
+//         echo "PERMISSÕES do usuário";
+//     });
+// });
 
 

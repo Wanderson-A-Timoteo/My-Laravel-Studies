@@ -13,9 +13,16 @@ use Illuminate\Http\Request;
 class ConfigController extends Controller
 {
     public function index(Request $request) {
-        $url = $request->url();
+        $cidade = $request->input('cidade', 'Cuiabá');
+        $nome = $request->input('nome', 'Visitante');
 
-        echo "URL: ".$url;
+        $dados = $request->only([ 'nome', 'idade' ]);
+
+        $exeto = $request->except([ 'idade', '_token' ]);
+
+        print_r($dados);
+        print_r($exeto);
+
         return view('config');
     }
 
