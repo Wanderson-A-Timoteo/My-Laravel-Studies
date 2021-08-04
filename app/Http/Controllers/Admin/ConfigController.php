@@ -13,17 +13,28 @@ use Illuminate\Http\Request;
 class ConfigController extends Controller
 {
     public function index(Request $request) {
-        $cidade = $request->input('cidade', 'Cuiabá');
-        $nome = $request->input('nome', 'Visitante');
 
-        $dados = $request->only([ 'nome', 'idade' ]);
+        $nome = 'Wanderson';
+        $idade = 20;
 
-        $exeto = $request->except([ 'idade', '_token' ]);
+        $data = [
+            'nome' => $nome,
+            'idade' => $idade
+        ];
+        return view('admin.config', $data);
 
-        print_r($dados);
-        print_r($exeto);
 
-        return view('config');
+        // $cidade = $request->input('cidade', 'Cuiabá');
+        // $nome = $request->input('nome', 'Visitante');
+
+        // $dados = $request->only([ 'nome', 'idade' ]);
+
+        // $exeto = $request->except([ 'idade', '_token' ]);
+
+        // print_r($dados);
+        // print_r($exeto);
+
+
     }
 
     public function info() {

@@ -1,4 +1,9 @@
 <h1>Configurações</h1>
+
+Meu nome é {{ $nome }}. Eu tenho {{ $idade }} anos.
+
+Versão: {{ $versao }}
+
 <form action="" method="POST">
     @csrf
 
