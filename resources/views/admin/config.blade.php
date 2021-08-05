@@ -1,19 +1,27 @@
-<h1>Configurações</h1>
+@extends('layouts.admin')
 
-Meu nome é {{ $nome }}. Eu tenho {{ $idade }} anos.
+@section('title', 'Configurações')
 
-Versão: {{ $versao }}
+@section('conteudo')
 
-<form action="" method="POST">
-    @csrf
+    <h1>Configurações</h1>
 
-    Nome: <br>
-    <input type="text" name="nome"> <br>
+    Meu nome é {{ $nome }}. Eu tenho {{ $idade }} anos.
 
-    Idade: <br>
-    <input type="text" name="idade"> <br>
+    <form action="" method="POST">
+        @csrf
 
-    <input type="submit" value="Enviar">
-</form>
+        Nome: <br>
+        <input type="text" name="nome"> <br>
 
-<a href="/config/info">Configurações INFO view config.blade</a>
+        Idade: <br>
+        <input type="text" name="idade"> <br>
+
+        Cidade: <br>
+        <input type="text" name="cidade"> <br>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+    <a href="/config/info">Configurações INFO da view config.blade</a>
+@endsection
