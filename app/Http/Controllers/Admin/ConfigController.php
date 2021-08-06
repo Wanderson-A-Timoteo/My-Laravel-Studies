@@ -17,11 +17,21 @@ class ConfigController extends Controller
         $nome = 'Wanderson';
         $idade = 20;
 
+        $ingredientes = [
+            'Trigo',
+            'Ovo',
+            'Fermento',
+            'Açucar'
+        ];
+
         $data = [
             'nome' => $nome,
-            'idade' => $idade
+            'idade' => $idade,
+            'lista' => $ingredientes
         ];
+
         return view('admin.config', $data);
+
 
 
         // $cidade = $request->input('cidade', 'Cuiabá');
