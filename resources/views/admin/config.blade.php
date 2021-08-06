@@ -6,6 +6,35 @@
 
     <h1>Configurações</h1>
 
+    @component('components.alert')
+        @slot('title')
+            Titulo 2:
+        @endslot
+            Conteúdo da mensagem de alerta 2
+    @endcomponent
+
+
+
+{{--
+
+    <x-alert>
+        @slot('title')
+            Titulo 2:
+        @endslot
+        Conteúdo da mensagem de alerta 2
+    </x-alert>
+
+    @component('alert')
+        @slot('title')
+            Sucesso:
+        @endslot
+         Cadastro realizado!
+    @endcomponent
+
+    @component('alert')
+        Erro ao cadastrar...
+    @endcomponent
+
     <?php
         $i = 0;
     ?>
@@ -17,8 +46,6 @@
         ?>
     @endwhile
 
-
-{{--
 
   <ul>
         @forelse ($lista as $item)
