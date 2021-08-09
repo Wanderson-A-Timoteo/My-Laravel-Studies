@@ -115,21 +115,35 @@ Para corrigir o erro precisamos definir as pastas, ou seja, os namespaces que el
 Route::get('/', 'HomeController');
 Route::view('/teste', 'teste');
 
+// Como foi criado o TodoController ele já cria todas as rotas usando o resource dele, para cada action respectiva
+Route::resource('todo', 'TodoController');
+/* AS ROTAS CRIADAS AUTOMATICAMENTE SÃO:
+GET - /todo - index todo.index - LISTA OS ITENS
+GET - /todo/create - create - todo.create - FORM DE CRIAÇÃO
+POST - /todo - store - todo.store - RECEBER OS DADOS E ADD ITEM
+GET - /todo/{id} - show - todo.show - ITEM INDIVIDUAL
+GET - /todo/{id}/edit - edit - todo.edit - FORM DE EDIÇÃO
+PUT - /todo/{id} - update - todo.update - RECEBER OS DADOS E UPDATE ITEM
+DELETE - /todo/{id} - destroy - todo.destroy - DELETAR O ITEM
+*/
+
 // Rotas de TarefasController e suas respectivas Actions
-Route::prefix('/tarefas')->group(function() {
+// Depois que foi criado o controller TodoController.php foi resumido todas estas rotas abixo
+// epenas com Route::resource('todo', 'TodoController');
+// Route::prefix('/tarefas')->group(function() {
 
-    Route::get('/', 'TarefasController@list')->name('tarefas.list'); //Listagem de tarefas
+//     Route::get('/', 'TarefasController@list')->name('tarefas.list'); //Listagem de tarefas
 
-    Route::get('add', 'TarefasController@add')->name('tarefas.add'); //Tela de adição
-    Route::post('add', 'TarefasController@addAction'); // Tela de ação de adição
+//     Route::get('add', 'TarefasController@add')->name('tarefas.add'); //Tela de adição
+//     Route::post('add', 'TarefasController@addAction'); // Tela de ação de adição
 
-    Route::get('edit/{id}', 'TarefasController@edit')->name('tarefas.edit'); // Tela de adição
-    Route::post('edit/{id}', 'TarefasController@editAction'); // Tela de ação de edição
+//     Route::get('edit/{id}', 'TarefasController@edit')->name('tarefas.edit'); // Tela de adição
+//     Route::post('edit/{id}', 'TarefasController@editAction'); // Tela de ação de edição
 
-    Route::get('delete/{id}', 'TarefasController@del')->name('tarefas.del');  // Tela de ação de deletar
+//     Route::get('delete/{id}', 'TarefasController@del')->name('tarefas.del');  // Tela de ação de deletar
 
-    Route::get('marcar/{id}', 'TarefasController@done')->name('tarefas.done');  // Marcar resolvido/não
-});
+//     Route::get('marcar/{id}', 'TarefasController@done')->name('tarefas.done');  // Marcar resolvido/não
+// });
 
 Route::prefix('/config')->group(function() {
 
