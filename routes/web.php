@@ -115,6 +115,22 @@ Para corrigir o erro precisamos definir as pastas, ou seja, os namespaces que el
 Route::get('/', 'HomeController');
 Route::view('/teste', 'teste');
 
+// Rotas de TarefasController e suas respectivas Actions
+Route::prefix('/tarefas')->group(function() {
+
+    Route::get('/', 'TarefasController@list')->name('tarefas.list'); //Listagem de tarefas
+
+    Route::get('add', 'TarefasController@add')->name('tarefas.add'); //Tela de adição
+    Route::post('add', 'TarefasController@addAction'); // Tela de ação de adição
+
+    Route::get('edit/{id}', 'TarefasController@edit')->name('tarefas.edit'); // Tela de adição
+    Route::post('edit/{id}', 'TarefasController@editAction'); // Tela de ação de edição
+
+    Route::get('delete/{id}', 'TarefasController@del')->name('tarefas.del');  // Tela de ação de deletar
+
+    Route::get('marcar/{id}', 'TarefasController@done')->name('tarefas.done');  // Marcar resolvido/não
+});
+
 Route::prefix('/config')->group(function() {
 
     Route::get('/', 'Admin\ConfigController@index');
