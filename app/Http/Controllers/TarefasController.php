@@ -3,17 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB; // usar com Query Builder
+use App\Models\Tarefa;
 
 class TarefasController extends Controller
 {
     // Controllers com suas respectivas actions
     public function list() {
-        $list = DB::select('SELECT * FROM tarefas');
+        // Exemplo com query build para listar tudo
+        // $list = DB::select('SELECT * FROM tarefas');
+        // return view('tarefas.list', [
+        //     'list' => $list
+        // ]);
 
+        // Exemplo com Eloquent ORM para listar tudo
+        $list = Tarefa::all();
         return view('tarefas.list', [
             'list' => $list
-        ]);
+         ]);
     }
 
     public function add() {
@@ -26,10 +33,15 @@ class TarefasController extends Controller
         ]);
 
         $titulo = $request->input('titulo');
+        // Exemplo com Query Builder
+        // DB::insert('INSERT INTO tarefas (titulo) VALUES (:titulo)', [
+        //     'titulo' => $titulo
+        // ]);
 
-        DB::insert('INSERT INTO tarefas (titulo) VALUES (:titulo)', [
-            'titulo' => $titulo
-        ]);
+        // Exemplo com Eloquent ORM
+        $tarefa = new Tarefa;
+        $tarefa->titulo = $titulo;
+        $tarefa->save();
 
         return redirect()->route('tarefas.list');
         // if ($request->filled('titulo')) { // Se o campo título estiver preenchido
@@ -49,13 +61,24 @@ class TarefasController extends Controller
     }
 
     public function edit($id) {
-        $data = DB::select('SELECT * FROM tarefas WHERE id = :id', [
-            'id'=> $id
-        ]);
+        //Exemplo com Query Builder
+        // $data = DB::select('SELECT * FROM tarefas WHERE id = :id', [
+        //     'id'=> $id
+        // ]);
 
-        if(count($data) > 0) {
+        // if(count($data) > 0) {
+        //     return view('tarefas.edit', [
+        //         'data' => $data[0]
+        //     ]);
+        // } else {
+        //     return redirect()->route('tarefas.list');
+        // }
+
+        // Exemplo com Eloquent ORM
+        $data = Tarefa::find($id);
+        if ($data) {
             return view('tarefas.edit', [
-                'data' => $data[0]
+                'data' => $data
             ]);
         } else {
             return redirect()->route('tarefas.list');
@@ -69,10 +92,21 @@ class TarefasController extends Controller
 
         $titulo = $request->input('titulo');
 
-        DB::update('UPDATE tarefas SET titulo = :titulo WHERE id = :id', [
-            'id' => $id,
-            'titulo' => $titulo
-        ]);
+        // Exemplo com Query Builder
+        // DB::update('UPDATE tarefas SET titulo = :titulo WHERE id = :id', [
+        //     'id' => $id,
+        //     'titulo' => $titulo
+        // ]);
+
+        // Exemplo com Eloquent ORM
+        // $tarefa = Tarefa::find($id);
+        // $tarefa->titulo = $titulo;
+        // $tarefa->save();
+
+        // Usando Tarefa::find($id)->update([ titulo'->$titulo ]);
+        // Exemplo com Eloquent para permitira editar varios campos ao mesmo tempo
+        // É preciso definir a permição em Models Tarefas.php
+        Tarefa::find($id)->update([ 'titulo'->$titulo ]);
 
         return redirect()->route('tarefas.list');
 
@@ -99,9 +133,15 @@ class TarefasController extends Controller
     }
 
     public function del($id) {
-        DB::delete('DELETE FROM tarefas WHERE id = :id', [
-            'id' => $id
-        ]);
+
+        // Exemplo com Query Builder
+        // DB::delete('DELETE FROM tarefas WHERE id = :id', [
+        //     'id' => $id
+        // ]);
+
+        // Exemplo com Eloquent ORM
+        Tarefa::find($id)->delete();
+
         return redirect()->route('tarefas.list');
     }
 
@@ -112,9 +152,19 @@ class TarefasController extends Controller
         // Se resolvido = 0, será 1 - 0 = 1 marcará
         // Se resolvido = 1, será 1 -1 = 0 desmarcará
 
-        DB::update('UPDATE tarefas SET resolvido = 1 - resolvido WHERE id = :id', [
-            'id' => $id
-        ]);
+
+        // Exemplo com Query Builder
+        // DB::update('UPDATE tarefas SET resolvido = 1 - resolvido WHERE id = :id', [
+        //     'id' => $id
+        // ]);
+
+        // Exemplo com Eloquent ORM
+        $tarefa = Tarefa::find($id);
+        if($tarefa) {
+            $tarefa->resolvido = 1 - $tarefa->resolvido;
+            $tarefa->save();
+        }
+
         return redirect()->route('tarefas.list');
     }
 }

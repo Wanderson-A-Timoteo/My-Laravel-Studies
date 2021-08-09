@@ -18,4 +18,9 @@ class Tarefa extends Model
 
     public $timestamps = false;
 
+    // Usamos protected $fillable = ['titulo'];
+    // Para editar varios campos no banco de dados ao mesmo tempo, entre chaves
+    // colocamos todos os campos que podem ser alterados
+    protected $fillable = ['titulo'];
+
 }
