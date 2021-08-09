@@ -18,6 +18,7 @@
             @endforeach
         </x-alert>
     @endif
+
     <form method="POST">
         @csrf
 

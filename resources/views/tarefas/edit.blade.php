@@ -5,9 +5,17 @@
 @section('conteudo')
     <h1>Edição</h1>
 
-    @if(session('warning'))
+    {{-- @if(session('warning'))
         <x-alert>
             {{ session('warning') }}
+        </x-alert>
+    @endif --}}
+
+    @if ($errors->any())
+        <x-alert>
+            @foreach ($errors->all() as $error)
+                {{ $error }} <br>
+            @endforeach
         </x-alert>
     @endif
 
