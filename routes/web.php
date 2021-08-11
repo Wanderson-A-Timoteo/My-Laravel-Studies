@@ -112,11 +112,11 @@ Dessa forma precisamos fazer algumas alterações, pois quando acessamos a rota 
 
 Para corrigir o erro precisamos definir as pastas, ou seja, os namespaces que eles estão enquadrados
 */
-Route::get('/', 'HomeController');
-Route::view('/teste', 'teste');
+// Route::get('/', 'HomeController');
+// Route::view('/teste', 'teste');
 
 // Como foi criado o TodoController ele já cria todas as rotas usando o resource dele, para cada action respectiva
-Route::resource('todo', 'TodoController');
+// Route::resource('todo', 'TodoController');
 /* AS ROTAS CRIADAS AUTOMATICAMENTE SÃO:
 GET - /todo - index todo.index - LISTA OS ITENS
 GET - /todo/create - create - todo.create - FORM DE CRIAÇÃO
@@ -145,20 +145,18 @@ DELETE - /todo/{id} - destroy - todo.destroy - DELETAR O ITEM
 //     Route::get('marcar/{id}', 'TarefasController@done')->name('tarefas.done');  // Marcar resolvido/não
 // });
 
-Route::prefix('/config')->group(function() {
+// Route::prefix('/config')->group(function() {
 
-    Route::get('/', 'Admin\ConfigController@index');
-    Route::post('/', 'Admin\ConfigController@index');
-    Route::get('info', 'Admin\ConfigController@info');
-    Route::get('permissoes', 'Admin\ConfigController@permissoes');
+//     Route::get('/', 'Admin\ConfigController@index')->middleware('auth');
+//     Route::post('/', 'Admin\ConfigController@index');
+//     Route::get('info', 'Admin\ConfigController@info');
+//     Route::get('permissoes', 'Admin\ConfigController@permissoes');
 
-});
+// });
 
 // Route::fallback(function() {
 //     return view('404');
 // });
-
-
 
 // Route::get('/', 'Controller');
 // Route::post('/usuario', 'Controller');
@@ -168,10 +166,7 @@ Route::prefix('/config')->group(function() {
 // Route::options('/usuario', 'Controller');
 
 
-
-
 // Route::post('/usuario', 'Controller');
-
 
 
 // Route::get('/usuario/{name}', function($name) {
@@ -219,3 +214,27 @@ Route::prefix('/config')->group(function() {
 // });
 
 
+Route::get('/', 'HomeController');
+Route::view('/teste', 'teste');
+
+Route::get('/login', function() {
+    echo 'PÁGINA DE LOGIN';
+})->name('login');
+
+// Como foi criado o TodoController ele já cria todas as rotas usando o resource dele, para cada action respectiva
+// Assim como descrito acima na linha 120
+Route::resource('todo', 'TodoController');
+
+Route::prefix('/config')->group(function() {
+
+    Route::get('/', 'Admin\ConfigController@index')->middleware('auth');
+
+    Route::post('/', 'Admin\ConfigController@index');
+    Route::get('info', 'Admin\ConfigController@info');
+    Route::get('permissoes', 'Admin\ConfigController@permissoes');
+
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
