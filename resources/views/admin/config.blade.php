@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin')
 
 @section('title', 'Configurações')
 
@@ -11,7 +11,7 @@
             Titulo 2:
         @endslot
             Conteúdo da mensagem de alerta 2
-    @endcomponent
+    @endcomponent --}}
 
 
 
@@ -96,21 +96,48 @@
         A variável existe
     @endunless --}}
 
+@extends('layouts.admin')
 
-    <form action="" method="POST">
-        @csrf
+@section('title', 'Configurações')
 
-        Nome: <br>
-        <input type="text" name="nome"> <br>
+@section('conteudo')
 
-        Idade: <br>
-        <input type="text" name="idade"> <br>
+    <h1>Configurações</h1>
 
-        Cidade: <br>
-        <input type="text" name="cidade"> <br>
+    Olá!, {{$nome}} - <a href="/logout">Sair</a>
 
-        <input type="submit" value="Enviar">
-    </form>
+    @component('components.alert')
+        @slot('title')
+            Titulo 2:
+        @endslot
+            Conteúdo da mensagem de alerta 2
+    @endcomponent
+
+    {{-- <ul>
+        @forelse ($lista as $item)
+            <li>{{$item['name']}} - {{$item['qt']}}</li>
+        @empty
+            <li>Não há ingredientes</li>
+        @endforelse
+    </ul> --}}
+
+    @if ($showForm)
+        <form method="POST">
+            @csrf
+
+            Nome: <br>
+            <input type="text" name="nome"> <br>
+
+            Idade: <br>
+            <input type="text" name="idade"> <br>
+
+            Cidade: <br>
+            <input type="text" name="cidade"> <br>
+
+            <input type="submit" value="Enviar">
+        </form>
+    @endif
+
 
     <a href="/config/info">Configurações INFO da view config.blade</a>
 @endsection

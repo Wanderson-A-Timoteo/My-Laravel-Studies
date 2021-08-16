@@ -217,22 +217,44 @@ DELETE - /todo/{id} - destroy - todo.destroy - DELETAR O ITEM
 Route::get('/', 'HomeController');
 Route::view('/teste', 'teste');
 
-Route::get('/login', function() {
-    echo 'PÁGINA DE LOGIN';
-})->name('login');
+Route::get('/login', 'Auth\LoginController@index')->name('login');
+Route::post('/login', 'Auth\LoginController@authenticate');
 
-// Como foi criado o TodoController ele já cria todas as rotas usando o resource dele, para cada action respectiva
-// Assim como descrito acima na linha 120
+Route::get('/register', 'Auth\RegisterController@index')->name('register');
+Route::get('/register', 'Auth\RegisterController@register');
+
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
 Route::resource('todo', 'TodoController');
+
+Route::prefix('/tarefas')->group(function() {
+
+    Route::get('/', 'TarefasController@list')->name('tarefas.list'); //Listagem de tarefas
+
+    Route::get('add', 'TarefasController@add')->name('tarefas.add'); //Tela de adição
+    Route::post('add', 'TarefasController@addAction'); // Tela de ação de adição
+
+    Route::get('edit/{id}', 'TarefasController@edit')->name('tarefas.edit'); // Tela de adição
+    Route::post('edit/{id}', 'TarefasController@editAction'); // Tela de ação de edição
+
+    Route::get('delete/{id}', 'TarefasController@del')->name('tarefas.del');  // Tela de ação de deletar
+
+    Route::get('marcar/{id}', 'TarefasController@done')->name('tarefas.done');  // Marcar resolvido/não
+});
+
 
 Route::prefix('/config')->group(function() {
 
-    Route::get('/', 'Admin\ConfigController@index')->middleware('auth');
-
+    Route::get('/', 'Admin\ConfigController@index') ->name('config.index');
     Route::post('/', 'Admin\ConfigController@index');
+
     Route::get('info', 'Admin\ConfigController@info');
     Route::get('permissoes', 'Admin\ConfigController@permissoes');
 
+});
+
+Route::fallback(function() {
+    return view('404');
 });
 
 Auth::routes();
